@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-grid.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dropzone.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+
+    <aside class="drawer pt-4">
+        <ul class="drawer__list">
+            <li class="drawer__list-item">
+                Upload the Image
+            </li>
+            <li class="drawer__list-item">
+                Image processing
+            </li>
+            <li class="drawer__list-item">
+                Edge detection
+            </li>
+            <li class="drawer__list-item">
+                fourth
+            </li>
+        </ul>
+    </aside>
+
+    <div class="container pt-4">
+        <div class="row mb-3">
+            <div class="col-sm-12">
+                <h1>{% block header %}{% endblock %}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/dropzone.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+
+</html>

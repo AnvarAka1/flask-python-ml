@@ -1,0 +1,33 @@
+{% extends "./layouts/basic.html" %}
+{% block title %}Home page{% endblock %}
+{% block header %}Welcome to first Image processing via Python playground!{% endblock %}
+{% block content %}
+<h4>First of all, let's upload the image, you want to make some manipulations with:</h4>
+
+<!-- <form action="/image" class="dropzone needsclick dz-clickable" id="my-awesome-dropzone" method="post"
+    enctype="multipart/form-data">
+    <input type="file" name="image" />
+</form> -->
+<form action="/image" method="post" enctype=multipart/form-data> <input type="file" name="file" />
+<button type="submit">upload</button>
+</form>
+{% if error %}
+<h4 class="text-danger">{{error}}</h4>
+{% endif %}
+<div class="img-block mt-2">
+    {% if image != None or image == "":%}
+    <img src="{{ url_for('static', filename='images/') }}{{image}}">
+    {% else %}
+    <img src="{{ url_for('static', filename='images/noimage.png') }}">
+    {% endif %}
+
+</div>
+{% if image != None:%}
+<div>
+    <h3>So, now let's do some operations with this Image!</h3>
+    <ul class="list-group">
+        <li class="list-group-item"><a href="/processing">Click here to see Image processing techniques</a></li>
+    </ul>
+</div>
+{% endif %}
+{% endblock%}

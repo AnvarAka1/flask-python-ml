@@ -1,0 +1,10 @@
+{% extends "./layouts/basic.html" %}
+{% block title %}Login page{% endblock %}
+{% block header %}Login, please{% endblock %}
+{% block content %}
+<form action="/login" method="POST">
+    <p>Name</p>
+    <input type="text" name="name">
+    <button type="submit">Submit</button>
+</form>
+{% endblock%}
