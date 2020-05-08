@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-grid.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dropzone.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 
     <title>{% block title %}{% endblock %}</title>
@@ -15,6 +14,9 @@
 <body>
 
     <aside class="drawer pt-4">
+        <div class="logo">
+            <a href="/"><img src="../../static/bg/logo.png" alt="logo" /></a>
+        </div>
         <ul class="drawer__list">
             <li class="drawer__list-item">
                 <a href="/">Home</a>
@@ -34,9 +36,6 @@
             <li class="drawer__list-item">
                 <a href="/tutorial">Tutorial</a>
             </li>
-            <li class="drawer__list-item">
-                <a href="/classification">Image classification</a>
-            </li>
         </ul>
     </aside>
 
@@ -45,14 +44,15 @@
             <div class="col-sm-12">
                 <h1>{% block header %}{% endblock %}</h1>
             </div>
+
         </div>
+        <hr />
         <div class="row">
             <div class="col-sm-12">
                 {% block content %}{% endblock %}
             </div>
         </div>
     </div>
-    <script src="{{ url_for('static', filename='js/dropzone.js') }}"></script>
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 </body>
 

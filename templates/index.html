@@ -8,13 +8,13 @@
     enctype="multipart/form-data">
     <input type="file" name="image" />
 </form> -->
-<form action="/image" method="post" enctype=multipart/form-data> <input type="file" name="file" />
+<form action="/image" method="post" class="mt-4 mb-4" enctype=multipart/form-data> <input type="file" name="file" />
 <button type="submit">upload</button>
 </form>
 {% if error %}
 <h4 class="text-danger">{{error}}</h4>
 {% endif %}
-<div class="img-block mt-2">
+<div class="img-block mt-2 dashed">
     {% if image != None or image == "":%}
     <img src="{{ url_for('static', filename='images/') }}{{image}}">
     {% else %}
@@ -23,10 +23,12 @@
 
 </div>
 {% if image != None:%}
-<h4>Hit Button and I will try to figure out whether this is dog or cat!</h4>
-<h4 id="classification"></h4>
+<h4 class="mt-4">Now, Hit Button and I will try to figure out whether this is dog or cat!</h4>
+
 <div>
     <button class="btn btn-primary processing" data-url="classification" data-id="5">Find out!</button></li>
 </div>
+<hr />
+<h4 class="mt-4" id="classification"></h4>
 {% endif %}
 {% endblock%}

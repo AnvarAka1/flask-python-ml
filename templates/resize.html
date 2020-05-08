@@ -6,7 +6,7 @@
     <div class="col-sm-12">
 
         <h4>Write down your own resolution</h4>
-        <p>{{error}}</p>
+        <p class="text-danger">{{error}}</p>
     </div>
 </div>
 <div class="row">
@@ -17,26 +17,27 @@
             {%endif%}
         </div>
     </div>
-    <div class="col-sm-6">
-        <div class="img-resize">
-            <img src="{{ url_for('static', filename='images/') }}{{image}}">
+    <div class="col-sm-6  ">
+        <div class="bg-white">
+            <div class="img-resize">
+                <img src="{{ url_for('static', filename='images/') }}{{image}}">
+            </div>
+            <div class="row">
+                <form action="/resize" method="POST" class="w-100">
+                    <div>
+                        <h3>Width:</h3><input class="w-100" type="number" name="width">
+                    </div>
+
+                    <div>
+                        <h3>Height:</h3><input class="w-100" type="number" name="height">
+                    </div>
+
+                    <button class="btn btn-primary processing w-100 mt-2" type="submit" data-url="resize"
+                        data-id="0">Resize</button>
+            </div>
+
+            </form>
         </div>
-        <div class="row">
-            <form action="/resize" method="POST" class="w-100">
-                <div>
-                    <h3>Width:</h3><input class="w-100" type="number" name="width">
-                </div>
-
-                <div>
-                    <h3>Height:</h3><input class="w-100" type="number" name="height">
-                </div>
-
-                <button class="btn btn-primary processing w-100 mt-2" type="submit" data-url="resize"
-                    data-id="0">Resize</button>
-        </div>
-
-        </form>
-
     </div>
     {% endblock%}
 </div>

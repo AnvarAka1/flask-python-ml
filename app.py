@@ -84,6 +84,8 @@ def resizeRoute():
     if(request.method == "POST"):
         width = request.form['width']
         height = request.form['height']
+        if(width == "" or height == "" or int(width) < 1 or int(height) < 1):
+            return render_template('resize.html', image=img.getImage(), error="Enter both width and height properly")
         img.applyResize(width=width, height=height)
 
         return render_template('resize.html', image=img.getImage(), resizedImg=f"{img.getFilteredImage()}?_={int(round(time.time() * 1000))}")

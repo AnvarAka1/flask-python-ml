@@ -107,7 +107,6 @@ def switchFunctions(id, number):
     # 0 - processing
     # 1 - blurring
     # 2 - colors
-    # 4 -
 
     processingSwitcher = {
         0: gaussianBlur,
