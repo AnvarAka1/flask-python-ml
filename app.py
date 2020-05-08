@@ -1,27 +1,22 @@
 from flask import Flask, redirect, url_for, render_template, request, jsonify
+from flask_cors import CORS
 from logic import Image
 import os
 import cv2
 from functions import *
+from items import *
 import logging
+import time
 import sys
-
 logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
+CORS(app)
 img = Image()
 @app.route("/")
 @app.route("/<error>")
 def home(error=None):
     return render_template("index.html", image=img.getImage(), error=error)
-
-
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        name = request.form['name']
-        return redirect(url_for("nameRoute", name=name))
-    return render_template('login.html')
 
 
 @app.route("/image", methods=["POST"])
@@ -33,40 +28,68 @@ def imageRoute():
     return render_template('index.html', image=img.getImage())
 
 
-# @app.errorhandler(404)
-# def p404():
-#     return redirect(url_for('home', error="Error! No such page!"))
+@app.route("/classification", methods=["GET", "POST"])
+def classificationRoute():
+    if(request.method == "POST"):
+        json = request.json
+        results = img.applyClassification()
+        return jsonify(results)
+    if img.getImage() == None:
+        return redirect(url_for('home', error="Error! Choose file first"))
+
+    return render_template('index.html', image=img.getImage())
 
 
 @app.route("/processing", methods=["POST", "GET"])
 def processingRoute():
     if(request.method == "POST"):
         json = request.json
-        img.applyImageProcessingTechniques(int(json['processing']))
+        img.applyImageProcessingTechniques(int(json['mt']), 0)
         return jsonify(img.getFilteredImage())
 
     if img.getImage() == None:
         return redirect(url_for('home', error="Error! Choose file first"))
-    items = [
-        {
-            "id": 0,
-            "title": "Blur the image"
-        },
-        {
-            "id": 1,
-            "title": "Convert to gray scale image"
-        },
-        {
-            "id": 2,
-            "title": "Convert to binary image"
-        },
-    ]
-    return render_template('processing.html', image=img.getImage(), items=items)
+
+    return render_template('processing.html', image=img.getImage(), items=getPItems())
 
 
-@app.route("/<name>")
-def nameRoute(name):
-    return f"<h1>{name}</h1>"
+@app.route("/blur", methods=["POST", "GET"])
+def blurringRoute():
+    if(request.method == "POST"):
+        json = request.json
+        img.applyImageProcessingTechniques(int(json['mt']), 1)
+        return jsonify(img.getFilteredImage())
+
+    if img.getImage() == None:
+        return redirect(url_for('home', error="Error! Choose file first"))
+
+    return render_template('blur.html', image=img.getImage(), items=getBItems())
+
+
+@app.route("/colors", methods=["POST", "GET"])
+def colorRoute():
+    if(request.method == "POST"):
+        json = request.json
+        img.applyImageProcessingTechniques(int(json['mt']), 2)
+        return jsonify(img.getFilteredImage())
+
+    if img.getImage() == None:
+        return redirect(url_for('home', error="Error! Choose file first"))
+
+    return render_template('color.html', image=img.getImage(), items=getCItems())
+
+
+@app.route("/resize", methods=["POST", "GET"])
+def resizeRoute():
+    if(request.method == "POST"):
+        width = request.form['width']
+        height = request.form['height']
+        img.applyResize(width=width, height=height)
+
+        return render_template('resize.html', image=img.getImage(), resizedImg=f"{img.getFilteredImage()}?_={int(round(time.time() * 1000))}")
+    if img.getImage() == None:
+        return redirect(url_for('home', error="Error! Choose file first"))
+    return render_template('resize.html', image=img.getImage())
 
 
 if __name__ == "__main__":

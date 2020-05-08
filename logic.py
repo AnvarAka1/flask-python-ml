@@ -15,18 +15,24 @@ class Image:
     def getImage(self):
         return self.img
 
-    def applyImageProcessingTechniques(self, id):
+    def applyImageProcessingTechniques(self, id, number):
         img = cv2.imread(f"./static/images/{self.img}")
-        func = switchFunctions(id)
+        func = switchFunctions(id, number)
         filteredImg = func(img)
         self.fImg = f"./static/images/f{self.img}"
         cv2.imwrite(self.fImg, filteredImg)
 
-    def setFilteredImage(self):
+    def applyResize(self, width, height):
         img = cv2.imread(f"./static/images/{self.img}")
-        filteredImg = gaussianBlur(img)
+        resizedImg = cv2.resize(img, (int(width), int(height)))
         self.fImg = f"./static/images/f{self.img}"
-        cv2.imwrite(self.fImg, filteredImg)
+        cv2.imwrite(self.fImg, resizedImg)
+        self.fImg = f"f{self.img}"
+
+    def applyClassification(self):
+        img = f"./static/images/{self.img}"
+        # returns results. Label and accuracy
+        return classification(img)
 
     def getFilteredImage(self):
         return self.fImg

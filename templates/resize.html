@@ -1,0 +1,43 @@
+{% extends "./layouts/basic.html" %}
+{% block title %}Resize page{% endblock %}
+{% block header %}Resize{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+
+        <h4>Write down your own resolution</h4>
+        <p>{{error}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div id="image" class="img-resize">
+            {%if resizedImg: %}
+            <img src="{{ url_for('static', filename='images/') }}{{resizedImg}}">
+            {%endif%}
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="img-resize">
+            <img src="{{ url_for('static', filename='images/') }}{{image}}">
+        </div>
+        <div class="row">
+            <form action="/resize" method="POST" class="w-100">
+                <div>
+                    <h3>Width:</h3><input class="w-100" type="number" name="width">
+                </div>
+
+                <div>
+                    <h3>Height:</h3><input class="w-100" type="number" name="height">
+                </div>
+
+                <button class="btn btn-primary processing w-100 mt-2" type="submit" data-url="resize"
+                    data-id="0">Resize</button>
+        </div>
+
+        </form>
+
+    </div>
+    {% endblock%}
+</div>
+</div>

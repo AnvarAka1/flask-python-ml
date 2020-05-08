@@ -8,18 +8,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	const processing = document.querySelectorAll(".processing");
 	console.log(processing);
+
 	if (processing.length > 0) {
 		processing.forEach(p => {
 			p.addEventListener("click", () => {
 				console.log("Clicked!", p.dataset.id);
-
-				fetch("http://localhost:5000/processing?_=" + new Date().getTime(), {
+				fetch(`http://localhost:5000/${p.dataset.url}?_=` + new Date().getTime(), {
 					method: "POST", // or 'PUT'
 					headers: {
 						"Content-Type": "application/json"
 						// "Cache-Control": "no-cache, must-revalidate"
 					},
-					body: `{ "processing": "${p.dataset.id}" }`
+					body: `{ "mt": "${p.dataset.id}" }`
 				})
 					.then(res => {
 						return res.json();
@@ -27,7 +27,14 @@ document.addEventListener("DOMContentLoaded", function() {
 					.then(res => {
 						const image = `<img src='${res + "?" + new Date().getTime()}' alt='filtered image' />`;
 						const imageDiv = document.querySelector("#image");
-						imageDiv.innerHTML = image;
+						const h4 = document.querySelector("#classification");
+						const text = `I will tell you with <span id="accuracy">${res.accuracy}%</span> that this is a <span id="label">${res.label}</span>`;
+						if (h4) {
+							h4.innerHTML = text;
+						}
+						if (imageDiv) {
+							imageDiv.innerHTML = image;
+						}
 					})
 					.catch(err => {
 						console.log(err);

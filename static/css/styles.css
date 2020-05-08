@@ -6,11 +6,12 @@
 body {
     padding: 0;
     margin: 0;
-
+    padding-bottom: 20px;
 }
 
 ul {
     list-style-type: none;
+    padding: 0;
 }
 
 img {
@@ -27,10 +28,21 @@ img {
     width: var(--width);
 }
 
-.drawer__list {}
+
+
 
 .drawer__list-item {
-    color: #e0e0e0
+    color: #e0e0e0;
+
+
+}
+
+.drawer__list-item a {
+    color: white;
+    padding: 5px 10px;
+    display: block;
+    text-align: left;
+
 }
 
 .container {
@@ -39,9 +51,22 @@ img {
 
 .img-block {
     width: 300px;
-
 }
 
 .img-block img {
     width: 100%;
+}
+
+.img-resize {
+    width: 100%;
+    overflow: scroll;
+
+}
+
+.img-resize img {
+    width: auto;
+}
+
+h4 span {
+    color: red
 }
