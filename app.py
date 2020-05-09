@@ -94,5 +94,15 @@ def resizeRoute():
     return render_template('resize.html', image=img.getImage())
 
 
+@app.route("/tutorial", methods=["POST", "GET"])
+def tutorialRoute():
+
+    if request.method == "POST":
+        return jsonify({"items": getTutorialItems(), "result": img.applyClassification()})
+    if img.getImage() == None:
+        return redirect(url_for('home', error="Error! Choose file first"))
+    return render_template("tutorial.html", image=img.getImage(), items=getTutorialItems())
+
+
 if __name__ == "__main__":
     app.run(debug=True)

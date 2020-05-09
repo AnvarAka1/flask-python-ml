@@ -78,8 +78,8 @@ with graph.as_default():
 # call model to predict an image
 
 
-def api(full_path):
-    data = image.load_img(full_path, target_size=(150, 150, 3))
+def getResult(imagePath):
+    data = image.load_img(imagePath, target_size=(150, 150, 3))
     data = np.expand_dims(data, axis=0)
     data = data * 1.0 / 255
 
@@ -90,8 +90,8 @@ def api(full_path):
 
 # processing uploaded file and predict it
 def classification(img):
-    indices = {0: 'Cat', 1: 'Dog', 2: 'Invasive carcinomar', 3: 'Normal'}
-    result = api(img)
+    indices = {0: 'Cat', 1: 'Dog', 2: 'Not normal', 3: 'Normal'}
+    result = getResult(img)
     predicted_class = np.asscalar(np.argmax(result, axis=1))
     accuracy = round(result[0][predicted_class] * 100, 2)
     label = indices[predicted_class]

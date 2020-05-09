@@ -1,0 +1,44 @@
+{% extends "./layouts/basic.html" %}
+{% block title %}Tutorial page{% endblock %}
+{% block header %}Dog vs Cat{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <h4>Tutorial on Image classification. Dog vs Cat</h4>
+        <p>{{error}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div id="result"></div>
+
+        <div id="explanation-tutorial">
+
+            <div>
+                <h2 id="title"></h2>
+                <h4>Explanation</h4>
+                <p id="expl"></p>
+                <h4>Code:</h4>
+                <p id="code"></p>
+                <hr />
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+
+        <div class="w-100">
+            <img src="{{ url_for('static', filename='images/') }}{{image}}">
+        </div>
+        <div class="row">
+            <div class="card w-100">
+                <button class="btn btn-primary" id="next">Next!</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock%}
+{%block scripts%}
+<script src="../static/js/tutorial.js"></script>
+{%endblock%}

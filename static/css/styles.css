@@ -133,3 +133,29 @@ h4 span {
 button.btn-primary {
     background-color: var(--accent)
 }
+
+#code {
+    background: #000;
+    color: white;
+    padding: 10px 5px
+}
+
+#code pre {
+    color: white
+}
+
+.code {
+    background-color: #4b3760;
+    padding: 1px 5px;
+    margin: 2px 0;
+    display: inline-block;
+    border-radius: 5px;
+    color: white
+}
+
+#explanation-tutorial {
+    background: rgb(224, 224, 224);
+    padding: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
