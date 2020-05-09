@@ -14,13 +14,18 @@
 {% if error %}
 <h4 class="text-danger">{{error}}</h4>
 {% endif %}
-<div class="img-block mt-2 dashed">
-    {% if image != None or image == "":%}
-    <img src="{{ url_for('static', filename='images/') }}{{image}}">
-    {% else %}
-    <img src="{{ url_for('static', filename='images/noimage.png') }}">
-    {% endif %}
+<div class="d-flex align-items-stretch">
+    <div class="img-block mt-2 dashed">
+        {% if image != None or image == "":%}
+        <img src="{{ url_for('static', filename='images/') }}{{image}}">
+        {% else %}
+        <img src="{{ url_for('static', filename='images/noimage.png') }}">
+        {% endif %}
 
+    </div>
+    <div id="filter" class="img-block mt-2 dashed">
+
+    </div>
 </div>
 {% if image != None:%}
 <h4 class="mt-4">Now, Hit Button and I will try to figure out whether this is dog or cat!</h4>

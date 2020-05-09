@@ -33,7 +33,12 @@ def classificationRoute():
     if(request.method == "POST"):
         json = request.json
         results = img.applyClassification()
-        return jsonify(results)
+        img.applyFeatureDetection()
+        data = {
+            "results": results,
+            "detection": img.getFilteredImage()
+        }
+        return jsonify(data)
     if img.getImage() == None:
         return redirect(url_for('home', error="Error! Choose file first"))
 

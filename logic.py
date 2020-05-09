@@ -1,5 +1,6 @@
 import cv2
 from functions import *
+from detection import *
 
 
 class Image:
@@ -27,6 +28,10 @@ class Image:
         resizedImg = cv2.resize(img, (int(width), int(height)))
         self.fImg = f"./static/images/f{self.img}"
         cv2.imwrite(self.fImg, resizedImg)
+        self.fImg = f"f{self.img}"
+
+    def applyFeatureDetection(self):
+        featureDetection(self.img)
         self.fImg = f"f{self.img}"
 
     def applyClassification(self):

@@ -1,7 +1,6 @@
 // let globalIndex = 0;
 document.addEventListener("DOMContentLoaded", function() {
 	const explanations = document.querySelector("#explanation");
-	let numberOfTutorialWindows = 0;
 	const makeExplanationsInvisible = exps => {
 		for (child of exps.children) {
 			child.style.display = "none";
@@ -30,15 +29,22 @@ document.addEventListener("DOMContentLoaded", function() {
 						return res.json();
 					})
 					.then(res => {
+						const fImage = `<img src="./static/images/${res.detection}" alt="filter"></img>`;
 						const image = `<img src='${res + "?" + new Date().getTime()}' alt='filtered image' />`;
+						const fImageDiv = document.querySelector("#filter");
 						const imageDiv = document.querySelector("#image");
 						const h4 = document.querySelector("#classification");
-						const text = `I will tell you with <span id="accuracy">${res.accuracy}%</span> accuracy, that this is a <span id="label">${res.label}</span>`;
+						const text = `I will tell you with <span id="accuracy">${res.results &&
+							res.results.accuracy}%</span> accuracy, that this is a <span id="label">${res.results &&
+							res.results.label}</span>`;
 						if (h4) {
 							h4.innerHTML = text;
 						}
 						if (imageDiv) {
 							imageDiv.innerHTML = image;
+						}
+						if (fImageDiv) {
+							fImageDiv.innerHTML = fImage;
 						}
 					})
 					.catch(err => {
